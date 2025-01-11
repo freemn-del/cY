@@ -1,1 +1,1 @@
-# https://freemn-del.github.io/CodeY
+# https://freemn-del.github.io/cY
