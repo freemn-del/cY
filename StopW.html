@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stop watch</title>
+    <title>Stopwatch</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
             background-color: #000;
-            color: #00ffcc;
+            color: #ffffff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -22,7 +22,6 @@
         .stopwatch {
             font-size: 5em;
             font-weight: bold;
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
             margin-bottom: 20px;
         }
 
@@ -43,9 +42,9 @@
             letter-spacing: 1px;
         }
 
-        .start { background: #00ff00; color: #000; box-shadow: 0 0 10px #00ff00; }
-        .stop { background: #ff3333; color: #000; box-shadow: 0 0 10px #ff3333; }
-        .reset { background: #3399ff; color: #000; box-shadow: 0 0 10px #3399ff; }
+        .start { background: #00ff00; color: #000; }
+        .stop { background: #ff3333; color: #000; }
+        .reset { background: #3399ff; color: #000; }
 
         button:hover {
             transform: scale(1.1);
@@ -59,7 +58,7 @@
 </head>
 <body>
 
-    <div class="stopwatch">00:00:00</div>
+    <div class="stopwatch">00:00:00.00</div>
     <div class="buttons">
         <button class="start" onclick="startStopwatch()">Start</button>
         <button class="stop" onclick="stopStopwatch()">Stop</button>
@@ -68,7 +67,7 @@
 
     <script>
         let timer;
-        let milliseconds = 0, seconds = 0, minutes = 0;
+        let milliseconds = 0, seconds = 0, minutes = 0, hours = 0;
         let isRunning = false;
 
         function startStopwatch() {
@@ -88,7 +87,8 @@
             milliseconds = 0;
             seconds = 0;
             minutes = 0;
-            document.querySelector(".stopwatch").innerText = "00:00:00";
+            hours = 0;
+            document.querySelector(".stopwatch").innerText = "00:00:00.00";
         }
 
         function updateTime() {
@@ -101,14 +101,19 @@
                 seconds = 0;
                 minutes++;
             }
+            if (minutes === 60) {
+                minutes = 0;
+                hours++;
+            }
 
+            let displayHours = hours < 10 ? "0" + hours : hours;
             let displayMinutes = minutes < 10 ? "0" + minutes : minutes;
             let displaySeconds = seconds < 10 ? "0" + seconds : seconds;
             let displayMilliseconds = Math.floor(milliseconds / 10);
             if (displayMilliseconds < 10) displayMilliseconds = "0" + displayMilliseconds;
 
             document.querySelector(".stopwatch").innerText = 
-                `${displayMinutes}:${displaySeconds}:${displayMilliseconds}`;
+                `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMilliseconds}`;
         }
     </script>
 
